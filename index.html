@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Espera solo un poco...</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #1C2A48, #B0B0B0);
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      z-index: 1;
+    }
+
+    #poema {
+      font-style: italic;
+      font-size: 1.1rem;
+      max-width: 500px;
+      margin-bottom: 2rem;
+      transition: opacity 0.5s;
+      z-index: 1;
+      padding: 0 1rem;
+    }
+
+    button {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      background-color: #ffffff;
+      color: #1C2A48;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      position: absolute;
+      z-index: 1;
+    }
+
+    button:hover {
+      background-color: #f0f0f0;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      #poema {
+        font-size: 1rem;
+      }
+
+      button {
+        font-size: 0.9rem;
+        padding: 0.8rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Espera solo un poco...</h1>
+  <div id="poema">Haz clic cuando estés lista 💬</div>
+  <button id="boton">¿Listo?</button>
+
+  <script>
+    const boton = document.getElementById('boton');
+    const poema = document.getElementById('poema');
+
+    const frases = [
+      "Tus ojos cafes, como los amo",
+      "Amo abrazarte",
+      "Amo que duermas en mi ",
+      "Me gusta tomar tu mano",
+      "Espera de verdad estoy haciendo algo",
+      "Lamento tantos feos correos",
+      "Lamento que tuvieras que decirme esto",
+      "Lamento la falta de ganas y creatividad",
+    ];
+
+    let intento = 0;
+
+    function moverBoton() {
+      const maxX = window.innerWidth - boton.offsetWidth;
+      const maxY = window.innerHeight - boton.offsetHeight;
+      const newX = Math.random() * maxX;
+      const newY = Math.random() * maxY;
+
+      boton.style.left = `${newX}px`;
+      boton.style.top = `${newY}px`;
+
+      poema.style.opacity = 0;
+      setTimeout(() => {
+        poema.textContent = frases[intento % frases.length];
+        poema.style.opacity = 1;
+        intento++;
+      }, 200);
+    }
+
+    // Para escritorio (hover)
+    boton.addEventListener('mouseover', moverBoton);
+
+    // Para celular (click/touch)
+    boton.addEventListener('click', moverBoton);
+  </script>
+</body>
+</html>
